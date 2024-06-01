@@ -1,43 +1,41 @@
 package frontend;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Button;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Controller {
 
     @FXML
-    private ComboBox<String> comboBox;
-    
-    @FXML
-    private VBox additionalFields;
+    private VBox mainContainer;
 
+    @FXML
     public void initialize() {
-        // Initialize the ComboBox with some values
-        comboBox.getItems().addAll("Option 1", "Option 2", "Option 3");
+        addComboAndTextField();
     }
 
     @FXML
-    protected void handleComboBoxAction() {
-        // Clear previous text fields
-        additionalFields.getChildren().clear();
+    private void addComboAndTextField() {
+        ComboBox<String> comboBox = new ComboBox<>();
+        ObservableList<String> options = FXCollections.observableArrayList(
+            "Option 1", "Option 2", "Option 3", "Option 4"
+        );
+        comboBox.setItems(options);
         
-        // Depending on the selection, add text fields
-        int numberOfFields = comboBox.getSelectionModel().getSelectedIndex() + 1;
-        for (int i = 0; i < numberOfFields; i++) {
-            additionalFields.getChildren().add(new TextField("Field " + (i + 1)));
-        }
-    }
-
-    @FXML
-    protected void handleAddMore() {
-        ComboBox<String> newComboBox = new ComboBox<>();
-        newComboBox.getItems().addAll("Option 1", "Option 2", "Option 3");
+        TextField textField = new TextField();
+        textField.setPromptText("Enter text");
         
-        TextField newTextField = new TextField();
-        VBox newVBox = new VBox(newComboBox, newTextField);
-        additionalFields.getChildren().add(newVBox);
+        VBox additionalFields = new VBox(5.0);
+        comboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+            TextField newField = new TextField();
+            newField.setPromptText("Additional for " + newVal);
+            additionalFields.getChildren().add(newField);
+        });
+        
+        mainContainer.getChildren().addAll(comboBox, textField, additionalFields);
     }
 }

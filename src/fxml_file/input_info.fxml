@@ -4,9 +4,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox fx:controller="frontend.Controller" xmlns:fx="http://javafx.com/fxml">
-    <ComboBox fx:id="comboBox" onAction="#handleComboBoxAction"/>
-    <Button text="+" onAction="#handleAddMore"/>
-    <VBox fx:id="additionalFields"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" fx:controller="frontend.Controller" xmlns:fx="http://javafx.com/fxml">
+    <VBox spacing="10.0" layoutX="100.0" layoutY="50.0" fx:id="mainContainer">
+        <Button text="+" onAction="#addComboAndTextField"/>
+        <ComboBox fx:id="comboBox" />
+        <TextField fx:id="initialTextField" promptText="Enter text"/>
+        <VBox fx:id="additionalFields" spacing="5.0"/>
+    </VBox>
+</AnchorPane>
