@@ -10,7 +10,7 @@ public class RCC extends Application {
     @Override
    public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(RCC.class.getResource("fxml_file/input_info.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),300,400);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();
     }
