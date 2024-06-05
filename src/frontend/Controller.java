@@ -1,12 +1,144 @@
 package frontend;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
-public class Controller {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+
+public class Controller implements Initializable{
+    int citeNumber = 0;
+
+    ArrayList<Pane> list = new ArrayList<>();
+
+    @FXML
+    ChoiceBox<String> selectStyle;
+
+    @FXML
+    VBox formContainer = new VBox();
+
+    @FXML
+    ScrollPane formScrollPane = new ScrollPane();
+
+    String[] style = {"RMIT Harvard", "IEEE"};
+    String[] type = {
+        "Books",
+        "Journal articles",
+        "Newspaper and magazine articles",
+        "Conference papers",
+        "Websites and webpage documents",
+        "Social media",
+        "Audiovisual material",
+        "Artworks, images, tables and graphs",
+        "Reports and data sets",
+        "Standards and patents",
+        "Theses and dissertations",
+        "Other sources"
+    };
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        selectStyle.getItems().addAll(style);
+        createForm(null);
+        
+    }
+
+    public void onPlusButton(){
+        createForm(null);
+        citeNumber++;
+    }
+
+    public void createForm(String typeValue){
+        Pane citeContainer = new Pane();
+        citeContainer.setMinSize(1080,200);
+        ChoiceBox<String> selectType = new ChoiceBox<>();
+        selectType.setId("selectBox" + citeNumber);
+        selectType.getItems().addAll(type);
+        selectType.setPrefSize(200, 35);
+
+        citeContainer.getChildren().add(selectType);
+        formContainer.getChildren().addFirst(citeContainer);
+
+
+        TextField[] form = setPositionNews();
+
+        double layoutX = 0;
+        double layoutY = 50;
+        for (int i = 1; i < 7; i++){
+            if(layoutX + 100 > citeContainer.getMinWidth()){
+                layoutY += 50;
+                layoutX = 0;
+            }
+
+            form[i-1].setLayoutX(layoutX);
+            form[i-1].setLayoutY(layoutY);
+            layoutX = layoutX + form[i-1].getPrefWidth() + 50;
+
+            citeContainer.getChildren().add(i, form[i-1]);
+        }
+
+        list.add(citeContainer);
+    }
+
+    public TextField[] setPositionNews(){
+        TextField[] form = new TextField[6];
+
+        TextField author = new TextField();
+        author.setPromptText("Author");
+        form[0] = author;
+        form[0].setPrefSize(100,20);
+
+        TextField datePublished = new TextField();
+        datePublished.setPromptText("Date publisher");
+        form[1] = datePublished;
+        form[1].setPrefSize(200,20);
+
+        TextField title = new TextField();
+        title.setPromptText("Title");
+        form[2] = title;
+        form[2].setPrefSize(100,20);
+        
+        TextField paper = new TextField();
+        paper.setPromptText("Name of paper or magazine");
+        form[3] = paper;
+        form[3].setPrefSize(400,20);
+
+        TextField dateAccesed = new TextField();
+        dateAccesed.setPromptText("Date accessed (Leave blank if today)");
+        form[4] = dateAccesed;
+        form[4].setPrefSize(400,20);
+
+        TextField URL = new TextField();
+        URL.setPromptText("Link to the sources");
+        form[5] = URL;
+        form[5].setPrefSize(300,20);
+
+        for(int i = 0; i < 6; i++){
+            form[i].setFont(Font.font(20));
+        }
+        
+        return form;
+
+    }
+
+    public void onSubmit(){
+        Pane resultPane = list.get(0);
+
+        TextField authorRes =  (TextField) resultPane.getChildren().get(1);
+
+        String authorString = authorRes.getText();
+
+        System.out.println(authorString);
+    }
 }

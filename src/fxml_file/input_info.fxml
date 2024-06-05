@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000054;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.Controller">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000054;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.Controller">
    <children>
-      <SplitPane dividerPositions="0.49838187702265374" layoutY="100.0" orientation="VERTICAL" prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <SplitPane dividerPositions="0.6189320388349514" layoutY="100.0" orientation="VERTICAL" prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <items>
-            <ScrollPane prefHeight="320.0" prefWidth="1078.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+            <ScrollPane fx:id="formScrollPane" fitToWidth="true" prefHeight="320.0" prefWidth="1080.0" vvalue="1.0">
+               <content>
+                  <VBox fx:id="formContainer" prefHeight="200.0" prefWidth="1080.0">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </VBox>
+               </content>
             </ScrollPane>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="292.0" prefWidth="1078.0">
                <content>
@@ -31,7 +39,7 @@
             </ScrollPane>
         </items>
       </SplitPane>
-      <Button layoutX="1008.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #E61E2A;" text="+" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+      <Button layoutX="1005.0" layoutY="29.0" mnemonicParsing="false" onAction="#onPlusButton" style="-fx-background-color: #E61E2A;" text="+" textFill="WHITE" AnchorPane.rightAnchor="21.5" AnchorPane.topAnchor="29.0">
          <font>
             <Font size="25.0" />
          </font>
@@ -43,7 +51,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button layoutX="875.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #E61E2A;" text="History" textFill="WHITE" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="20.0">
+      <Button layoutX="931.0" layoutY="29.0" mnemonicParsing="false" style="-fx-background-color: #E61E2A;" text="History" textFill="WHITE" AnchorPane.rightAnchor="91.5" AnchorPane.topAnchor="29.0">
          <font>
             <Font size="25.0" />
          </font>
@@ -55,6 +63,15 @@
             </DropShadow>
          </effect>
       </Button>
-      <ComboBox layoutX="465.0" layoutY="34.0" prefWidth="150.0" promptText="Select style" />
+      <ChoiceBox fx:id="selectStyle" layoutX="479.0" layoutY="24.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: WHITE; -fx-font-size: 20;" AnchorPane.leftAnchor="479.0" AnchorPane.topAnchor="24.0" />
+      <Button layoutX="342.0" layoutY="29.0" mnemonicParsing="false" onAction="#onSubmit" style="-fx-background-color: #E61E2A;" text="Submit">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,39 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000054;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.Controller">
+<AnchorPane prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #000054;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.Controller">
    <children>
-      <SplitPane dividerPositions="0.5226537216828478" layoutY="100.0" orientation="VERTICAL" prefHeight="620.0" prefWidth="1080.0">
+      <SplitPane dividerPositions="0.6189320388349514" layoutY="100.0" orientation="VERTICAL" prefHeight="620.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <ScrollPane prefHeight="320.0" prefWidth="1078.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="1078.0">
-               <children>
-                  <ScrollPane prefHeight="292.0" prefWidth="1078.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <content>
-                        <TextArea prefHeight="278.0" prefWidth="1080.0" promptText="Citation script appear here...." text="p 5: Adding and Configuring the TextAreaDrag a TextArea from the Library: Place it inside the ScrollPane that you added to one half of the SplitPane.Set Expand Properties: In Scene Builder, ensure that the TextArea is selected. Then, in the Inspector on the right, go to the &quot;Layout&quot; section.Anchor Points: If the parent of the TextArea (inside the ScrollPane) allows for anchoring (such as an AnchorPane), set the anchor properties to 0 for all sides (top, right, bottom, left). This makes the TextArea expand to fill the entire area of the ScrollPane:If the ScrollPane is not inside an AnchorPane and is directly holding the TextArea, the TextArea should still expand to fill the ScrollPane automatically, as the ScrollPane by default sizes its content to the available space unless specified otherwise.Check Scroll Bar Settings: In the &quot;Properties&quot; tab in the Inspector, ensure that the scroll bars of the ScrollPane are set appropriately:Vbar Policy: Set to &quot;AS_NEEDED&quot; (or &quot;ALWAYS&quot; if you prefer a permanent vertical scrollbar).Hbar Policy: Set to &quot;AS_NEEDED&quot; (or &quot;NEVER&quot; if you don't want horizontal scrolling " wrapText="true">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </TextArea>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
+            <ScrollPane fx:id="formScrollPane" fitToWidth="true" prefHeight="320.0" prefWidth="1080.0" vvalue="1.0">
+               <content>
+                  <VBox fx:id="formContainer" prefHeight="200.0" prefWidth="1080.0">
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="292.0" prefWidth="1078.0">
+               <content>
+                  <TextArea prefHeight="278.0" prefWidth="1080.0" promptText="Citation script appear here...." text="p 5: Adding and Configuring the TextAreaDrag a TextArea from the Library: Place it inside the ScrollPane that you added to one half of the SplitPane.Set Expand Properties: In Scene Builder, ensure that the TextArea is selected. Then, in the Inspector on the right, go to the &quot;Layout&quot; section.Anchor Points: If the parent of the TextArea (inside the ScrollPane) allows for anchoring (such as an AnchorPane), set the anchor properties to 0 for all sides (top, right, bottom, left). This makes the TextArea expand to fill the entire area of the ScrollPane:If the ScrollPane is not inside an AnchorPane and is directly holding the TextArea, the TextArea should still expand to fill the ScrollPane automatically, as the ScrollPane by default sizes its content to the available space unless specified otherwise.Check Scroll Bar Settings: In the &quot;Properties&quot; tab in the Inspector, ensure that the scroll bars of the ScrollPane are set appropriately:Vbar Policy: Set to &quot;AS_NEEDED&quot; (or &quot;ALWAYS&quot; if you prefer a permanent vertical scrollbar).Hbar Policy: Set to &quot;AS_NEEDED&quot; (or &quot;NEVER&quot; if you don't want horizontal scrolling " wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextArea>
+               </content>
+            </ScrollPane>
         </items>
       </SplitPane>
+      <Button layoutX="1005.0" layoutY="29.0" mnemonicParsing="false" onAction="#onPlusButton" style="-fx-background-color: #E61E2A;" text="+" textFill="WHITE" AnchorPane.rightAnchor="21.5" AnchorPane.topAnchor="29.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button layoutX="931.0" layoutY="29.0" mnemonicParsing="false" style="-fx-background-color: #E61E2A;" text="History" textFill="WHITE" AnchorPane.rightAnchor="91.5" AnchorPane.topAnchor="29.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <ChoiceBox fx:id="selectStyle" layoutX="479.0" layoutY="24.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: WHITE; -fx-font-size: 20;" AnchorPane.leftAnchor="479.0" AnchorPane.topAnchor="24.0" />
+      <Button layoutX="342.0" layoutY="29.0" mnemonicParsing="false" onAction="#onSubmit" style="-fx-background-color: #E61E2A;" text="Submit">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
    </children>
-</Pane>
+</AnchorPane>
