@@ -1,16 +1,22 @@
 package frontend;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import frontend.RMIT_Harvard;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +26,12 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable{
     int citeNumber = 0;
 
+    TextFlow text = new TextFlow();
+
     ArrayList<Pane> list = new ArrayList<>();
+
+    @FXML
+    ContextMenu contextMenu = new ContextMenu();
 
     @FXML
     ChoiceBox<String> selectStyle;
@@ -30,6 +41,9 @@ public class Controller implements Initializable{
 
     @FXML
     ScrollPane formScrollPane = new ScrollPane();
+
+    @FXML
+    VBox vboxResult = new VBox();
 
     String[] style = {"RMIT Harvard", "IEEE"};
     String[] type = {
@@ -100,7 +114,7 @@ public class Controller implements Initializable{
         form[0].setPrefSize(100,20);
 
         TextField datePublished = new TextField();
-        datePublished.setPromptText("Date publisher");
+        datePublished.setPromptText("Date publisher(DD/MM/YYYY)");
         form[1] = datePublished;
         form[1].setPrefSize(200,20);
 
@@ -133,12 +147,52 @@ public class Controller implements Initializable{
     }
 
     public void onSubmit(){
-        Pane resultPane = list.get(0);
+        
+        for (int i = 0; i <= citeNumber; i++){
+            Pane resultPane = list.get(i);
+            String[] information = new String[resultPane.getChildren().size()];
 
-        TextField authorRes =  (TextField) resultPane.getChildren().get(1);
+            for(int y = 1; y < resultPane.getChildren().size();y++){
+                TextField res =  (TextField) resultPane.getChildren().get(y);
 
-        String authorString = authorRes.getText();
+                String resIdx = res.getText();
 
-        System.out.println(authorString);
+                information[y-1] = resIdx;
+
+            }
+
+            RMIT_Harvard rmit_Harvard = new RMIT_Harvard(information);
+            vboxResult.getChildren().add(rmit_Harvard.createReferenceTextFlow());
+            setUpContextMenu(rmit_Harvard.createReferenceTextFlow());
+        }
+    }
+
+    private void setUpContextMenu(TextFlow textFlow) {
+        MenuItem copyItem = new MenuItem("Copy with Formatting");
+        copyItem.setOnAction(event -> copyTextWithFormatting(textFlow));
+        contextMenu.getItems().add(copyItem);
+
+        textFlow.setOnContextMenuRequested(event -> 
+            contextMenu.show(textFlow, event.getScreenX(), event.getScreenY()));
+    }
+
+    private void copyTextWithFormatting(TextFlow textFlow) {
+        String htmlContent = convertToHTML(textFlow);
+        ClipboardContent content = new ClipboardContent();
+        content.putHtml(htmlContent);
+        Clipboard.getSystemClipboard().setContent(content);
+    }
+
+    private String convertToHTML(TextFlow textFlow) {
+        StringBuilder html = new StringBuilder("<html><body>");
+        for (var child : textFlow.getChildren()) {
+            if (child instanceof Text) {
+                Text text = (Text) child;
+                String style = text.getFont().getStyle().contains("Italic") ? "<i>" : "";
+                html.append(style).append(text.getText()).append(style.isEmpty() ? "" : "</i>");
+            }
+        }
+        html.append("</body></html>");
+        return html.toString();
     }
 }
